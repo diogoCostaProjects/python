@@ -24,6 +24,26 @@ def delete_item(item_list, index):
         deleted_item = item_list.pop(index)
         print(f"Item '{deleted_item}' removido com sucesso!")
 
+def escrever_arquivo(nome_arquivo, texto):
+    if nome_arquivo == '' :
+        nome_arquivo =  'lista_tarefas.txt'
+        
+    with open(nome_arquivo, 'w') as arquivo:
+        arquivo.write(texto)
+
+def ler_arquivo():
+    with open('lista_tarefas.txt', 'r') as arquivo:
+        conteudo = arquivo.read()
+    return conteudo
+
+def converter_array_para_string(arr):
+    return ' '.join(map(str, arr))
+
+# Exemplo de uso:
+# texto_para_escrever = "Este é um exemplo de texto para escrever em um arquivo."
+# nome_do_arquivo = "exemplo.txt"
+# escrever_arquivo(nome_do_arquivo, texto_para_escrever)
+
 def main():
     items = []
 
@@ -33,7 +53,8 @@ def main():
         print("2. Mostrar itens")
         print("3. Atualizar item")
         print("4. Deletar item")
-        print("5. Sair")
+        print("5. Gravar em arquivo")
+        print("6. Sair")
 
         choice = input("Escolha uma opção: ")
 
@@ -50,6 +71,14 @@ def main():
             index = int(input("Digite o índice do item que deseja deletar: ")) - 1
             delete_item(items, index)
         elif choice == "5":
+            print("Gravando em arquivo de texto...")
+            result = converter_array_para_string(items)
+            escrever_arquivo('', result)
+            conteudo_arquivo = ler_arquivo()
+            print('Conteúdo gravado')
+            print(conteudo_arquivo)
+            break
+        elif choice == "6":
             print("Saindo do programa.")
             break
         else:
